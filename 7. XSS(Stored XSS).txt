@@ -1,0 +1,7 @@
+완벽하지 않은 XSS 보안 조치를 취한 해당 게시판에서 Stored XSS를 통하여 'XSS' 메시지를 띄우시오.
+(기존의 게시글을 클릭해서 발생시키지 말고 새로 작성하여 XSS를 띄워야 합니다.)
+
+공격구문 :
+content - <script>alert(1)</script>
+
+정답: javascript_xss

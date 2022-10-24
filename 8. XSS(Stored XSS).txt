@@ -1,0 +1,5 @@
+완벽하지 않은 XSS 보안 조치를 취한 해당 게시판에서 Stored XSS를 통하여 'XSS' 메시지를 띄우시오.
+
+글을 등록할 때 <script></script>가 필터링됨 우회 시도
+1. <scr<script>ipt></scr</script>ipt>
+안됨 소스 분석

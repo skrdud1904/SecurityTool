@@ -1,0 +1,5 @@
+게시글 접근 시 XSS발생
+board_id=18';}alert('XSS');{//
+
+
+답: xss_exam

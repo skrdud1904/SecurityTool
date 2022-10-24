@@ -1,0 +1,9 @@
+본인만 확인 가능한 FAQ 게시판에서 Stored XSS를 통하여 'XSS' 메시지를 띄우시오.
+
+해당 Stored는 Client단에서 필터링 수행 후 파라미터가 전달되기 때문에
+프록시 툴에서 변조하면 된다
+
+
+<p><script>alert(1)</script></p>
+
+정답 : html..xss

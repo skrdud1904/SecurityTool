@@ -1,0 +1,5 @@
+스크립트 발생 파라미터
+
+pageIndex=11"><script>alert('XSS')</script>
+
+답: skinfosec

